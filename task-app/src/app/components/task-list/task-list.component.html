@@ -1,0 +1,35 @@
+<div class="task-list">
+    <h2>Task List</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Due Date</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let task of tasks">
+                <td>{{ task.title }}</td>
+                <td>{{ task.description }}</td>
+                <td>{{ task.dueDate | date:'mediumDate' }}</td>
+                <td>
+                    <button *ngIf="task.id !== undefined" (click)="showTaskHistory(task.id)" class="btn-history">Show History</button>
+                    <button (click)="deleteTask(task.id)" class="btn-delete">Delete</button>
+                </td>
+            </tr>          
+      </tbody>
+    </table>
+    <div *ngIf="selectedTaskHistory.length > 0" class="task-history">
+        <h3>Task History</h3>
+        <ul>
+            <li *ngFor="let history of selectedTaskHistory">
+                {{ history.action || 'No Description' }} - 
+                {{ history.timestamp ? (history.timestamp| date:'medium') : 'No Date' }}
+            </li>
+        </ul>
+    </div>
+      
+</div>
+  
